@@ -1,16 +1,27 @@
-
-
-export default async function Main() {
-  const models = async function getData() {
-    "use server"
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
-    const res = await fetch(API_URL, {mode: "cors"});
-    if (!res.ok) console.log("error");
-    return (await res.json());
+async function getData() {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  try {
+    const res = await fetch(`${API_URL}/data1`, {mode: "cors"});
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const data = await res.json();
+    console.log("Data received:", data); // Debug data
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
   }
-
+ }
+ 
+ export default async function Main() {
+  const models = await getData();
+ 
+  if (!Array.isArray(models)) {
+    console.error("Data is not an array:", models);
+    return <div>Error loading data</div>;
+  }
+ 
   return (
-    <div className="mx-8 mt-3 w-[92rem] h-[50rem] rounded-md ">
+    <div className="mx-8 mt-3 w-[92rem] h-[50rem] rounded-md">
       {models.map((model) => (
         <div key={model.model_id} className="p-4 border rounded-md mb-4 bg-sidebar">
           <h2 className="text-xl font-bold">{model.name}</h2>
@@ -26,4 +37,4 @@ export default async function Main() {
       ))}
     </div>
   );
-}
+ }
