@@ -1,35 +1,13 @@
 
 
-async function getData() {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(API_URL, {mode: "cors"});
-  if (!res.ok) console.log("error");
-  return (await res.json());
-}
-
-
 export default async function Main() {
-  const models = await getData();
-
-  // useEffect(() => {
-    
-  //   const fetchData = async () => {
-  //     console.log(API_URL);
-  //     try {
-  //       const response = await fetch(API_URL, {mode: "cors"});
-  //       console.log("Raw response:", response); // Cek response mentah
-
-  //       const data = await response.json();
-  //       setModels(data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //       console.error("Error type:", error.name);
-  //       console.error("Error message:", error.message);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [API_URL]);
+  const models = async function getData() {
+    "use server"
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const res = await fetch(API_URL, {mode: "cors"});
+    if (!res.ok) console.log("error");
+    return (await res.json());
+  }
 
   return (
     <div className="mx-8 mt-3 w-[92rem] h-[50rem] rounded-md ">
