@@ -1,3 +1,5 @@
+import { unstable_noStore as noStore } from 'next/cache';
+noStore();
 async function getData() {
   const API_URL = "http://10.253.128.13:5000/data1";
   try {
