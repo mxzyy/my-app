@@ -1,7 +1,7 @@
 async function getData() {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   try {
-    const res = await fetch(`${API_URL}/data1`, {mode: "cors"});
+    const res = await fetch(API_URL, {mode: "cors"});
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const data = await res.json();
     console.log("Data received:", data); // Debug data
@@ -14,7 +14,7 @@ async function getData() {
  
  export default async function Main() {
   const models = await getData();
- 
+  console.log(models);
   if (!Array.isArray(models)) {
     console.error("Data is not an array:", models);
     return <div>Error loading data</div>;
