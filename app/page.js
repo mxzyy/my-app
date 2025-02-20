@@ -22,6 +22,7 @@ async function getData() {
  
   return (
     <div className="mx-8 mt-3 w-[92rem] h-[50rem] rounded-md">
+      <h1>{process.env.NEXT_PUBLIC_API_URL || "api 404"}</h1>
       {models.map((model) => (
         <div key={model.model_id} className="p-4 border rounded-md mb-4 bg-sidebar">
           <h2 className="text-xl font-bold">{model.name}</h2>
